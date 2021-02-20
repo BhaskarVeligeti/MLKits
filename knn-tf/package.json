@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --inspect-brk ./index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tensorflow/tfjs-node": "^0.1.17",
-    "lodash": "^4.17.11",
+    "@tensorflow/tfjs-node": "0.1.17",
+    "lodash": "^4.17.20",
     "shuffle-seed": "^1.1.6"
   }
 }
