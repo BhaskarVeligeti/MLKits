@@ -2,17 +2,94 @@ require('@tensorflow/tfjs-node');
 const tf = require('@tensorflow/tfjs');
 const loadCSV = require('./load-csv');
 
+/* -------------- --------------  Fundamentals -------------- -------------- -------------- 
+                                  1. Features VS Labels
+                                  2. Test VS Training sets of data
+                                  3. Feature Standarization
+                                  4. Common data structure (array of arrays)
+                                  5. Feature Selection
+                                Tool :   https://stephengrider.github.io/JSPlaygrounds/
+-------------- -------------- -------------- -------------- -------------- -------------- */
+
+/* -------------- --------------  Goal >  -------------- -------------- -------------- 
+                                  What is the price of a house for given Lat and Long
+-------------- -------------- -------------- -------------- -------------- -------------- */
+
+
+/* -------------- Step 1: Identify data that is relevant to the problem --------------*/
+/* -------------- Step 2: Assemble a set of data related to the problem you're trying to solve : --------------*/
+let { features, labels, testFeatures, testLabels } = loadCSV('kc_house_data.csv', {
+    shuffle: true,
+    splitTest: 1,
+    dataColumns: ['lat', 'long', 'sqft_lot', 'sqft_living'],
+    labelColumns: ['price']
+});
+
+// convert into tensor because it is array
+features = tf.tensor(features);
+labels = tf.tensor(labels);
+
+const k = 10;
+
+/*
+console.log('testFeatures :', testFeatures)
+console.log('testLabels :', testLabels)
+
+testFeatures : [
+    [ 47.561, -122.226 ],
+    [ 47.6595, -122.186 ],
+    [ 47.5081, -122.093 ],
+    [ 47.5276, -122.161 ],
+    [ 47.6695, -122.333 ],
+    [ 47.6769, -122.36 ],
+    [ 47.5442, -122.141 ],
+    [ 47.699, -122.206 ],
+    [ 47.3196, -122.399 ],
+    [ 47.2843, -122.357 ]
+  ]
+  testLabels : [
+    [ 1085000 ],
+    [ 466800 ],
+    [ 425000 ],
+    [ 565000 ],
+    [ 759000 ],
+    [ 512031 ],
+    [ 768000 ],
+    [ 1532500 ],
+    [ 204950 ],
+    [ 247000 ]
+  ]
+  */
+
+/* --------------Step 3: Decide on the type of output you are predicting --------------*/
+//This is Regression  type : because price of the property is continueous change
+
+/* -------------- Step 4: Based on type of output,pick an algorithm that will determine a correlation between your "features" and "labels" --------------*/
+/*
+Algorithm = K-Nearest Neighbor (knn)
+            "Birds of a feather flock together"
+Why  = Looking other observations very close in nature features output
+                            
+                                Implementation :
+
+        1. Feature Standarization      =  (value-average)/sqrt(variance)
+        2. Find the distance between features and prediction point   = sqrt ((lat-lat)**2+(long-long)**2)
+        3. Sort from lowestpoint to greatest
+        4. Take the top K records
+        5. Average the label value of those top K records
+*/
+
 
 function knn(features, labels, predictionPoint, k) {
-    const { mean, variance } = tf.moments(features, 0)
-    const scaledPrediction =
-        predictionPoint
-            .sub(mean)
-            .div(variance.pow(0.5))
+    // 1.Feature Standarization
+    const { mean, variance } = tf.moments(features, 0); // along axis 0
+    const scaledPrediction = predictionPoint.sub(mean).div(variance.pow(0.5))
 
     return features
+        // 1.standarization
         .sub(mean)
         .div(variance.pow(0.5))
+        // 2.distance between features and prediction point 
         .sub(scaledPrediction)
         .pow(2)
         .sum(1)
@@ -20,44 +97,62 @@ function knn(features, labels, predictionPoint, k) {
         .expandDims(1)
         .concat(labels, 1)
         .unstack()
+        // 3.sort lowest to greatest
         .sort((a, b) => a.get(0) > b.get(0) ? 1 : -1)
+        // 4.take top K records
         .slice(0, k)
+        // 5.average the label value of those top K records
         .reduce((acc, pair) => acc + pair.get(1), 0) / k;
 }
 
-let { features, labels, testFeatures, testLabels } = loadCSV('kc_house_data.csv', {
-    shuffle: true,
-    splitTest: 10,
-    dataColumns: ['lat', 'long', 'sqft_lot','sqft_living'],
-    labelColumns: ['price']
-});
 
-console.log('testFeatures :', testFeatures)
-console.log('testLabels :', testLabels)
 
-// convert into tensor
-features = tf.tensor(features);
-labels = tf.tensor(labels);
-// testFeatures = tf.tensor(testFeatures);
-// testLabels = tf.tensor(testLabels);
 
-/*
-// this is fro signle location
-const result = knn(features, labels, tf.tensor(testFeatures[0]), 10);
-const err = 100 * (testLabels[0][0] - result) / testLabels[0][0]
-console.log('Predicted Price :', result)
-console.log('Expected Price :', testLabels[0][0])
-console.log('Error:', err)
-*/
-// for all locations
-testFeatures.forEach((testPoint, i) => {
-    const result = knn(features, labels, tf.tensor(testPoint), 10);
-    const err = 100 * (testLabels[i][0] - result) / testLabels[i][0]
+/* -------------- Training and Test Analysis  --------------*/
+function runTestAnalysis() {
+    // this is from signle location trained
+    const result = knn(features, labels, tf.tensor(testFeatures[0]), k);
+    const accuracy = 100 * (testLabels[0][0] - result) / testLabels[0][0]
+    console.log('Actual Price :', testLabels[0][0])
     console.log('Predicted Price :', result)
-    console.log('Expected Price :', testLabels[0][0])
-    console.log('Error:', err)
+    console.log('Accuracy is : ', accuracy, '%')
     console.log('-----------------------------------------',)
-})
+
+    // testFeatures: [[47.561, -122.226, 11019, 3630]]
+    // testLabels: [[1085000]]
+    // Actual Price: 1085000
+    // Predicted Price: 1251260
+    // Accuracy is: -15.323502304147466 %
+
+    // for all locations  trained
+    testFeatures.forEach((testPoint, i) => {
+        const result = knn(features, labels, tf.tensor(testPoint), k);
+        const accuracy = 100 * (testLabels[i][0] - result) / testLabels[i][0]
+        console.log('Expected Price :', testLabels[0][0])
+        console.log('Predicted Price :', result)
+        console.log('Accuracy is : ', accuracy, '%')
+        console.log('-----------------------------------------',)
+    })
+}
+
+// runTestAnalysis();  
+
+
+/* -------------- Step 5: Use model generated by algoritm to make a prediction --------------*/
+
+function runAnalysis(predictionPoint) {
+    const result = knn(features, labels, tf.tensor(predictionPoint), k);
+    return result
+}
+
+const predictionPoint = [47.561, -122.226, 11019, 3630]
+const result = runAnalysis(predictionPoint)
+
+console.log('PredictionPoint :', predictionPoint)
+console.log('Predicted Price :', result)
+
+
+
 
 
 
