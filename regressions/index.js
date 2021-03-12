@@ -1,53 +1,63 @@
 require('@tensorflow/tfjs-node');
 const tf = require('@tensorflow/tfjs');
 const loadCSV = require('./load-csv');
-// const LinearRegression = require('./liner-regression-slow') // slow version
+const dataCSV = require('./data-csv');
 const LinearRegression = require('./liner-regression-faster') // faster version
 const plot = require('node-remote-plot')
-
-/* -------------- --------------  Fundamentals -------------- -------------- -------------- 
+const numeral = require('numeral');
+/* ----------------------------  Fundamentals ------------------------------------------ 
                                   1. Features VS Labels
                                   2. Test VS Training sets of data
                                   3. Feature Standarization
                                   4. Common data structure (array of arrays)
                                   5. Feature Selection
                                 Tool :   https://stephengrider.github.io/JSPlaygrounds/
--------------- -------------- -------------- -------------- -------------- -------------- */
+------------------------------------------------------------------------------------ */
 
-/* -------------- --------------  Goal >  -------------- -------------- -------------- 
-                                  What is the Miles Per Gallon of a car for given horsepower
--------------- -------------- -------------- -------------- -------------- -------------- */
+/* ----------------------------  Goal >  ------------------------------------------ 
+                                  What is the Bill Amount in year for give month
+------------------------------------------------------------------------------------ */
 
 
 
 
 /* -------------- Step 1: Identify data that is relevant to the problem --------------*/
 /* -------------- Step 2: Assemble a set of data related to the problem you're trying to solve : --------------*/
-let { features, labels, testFeatures, testLabels } = loadCSV('cars.csv', {
+let { features, labels, testFeatures, testLabels } = loadCSV('aprilsales.csv', {
   shuffle: true,
-  splitTest: 50,
-  dataColumns: ['horsepower', 'weight', 'displacement'],
-  labelColumns: ['mpg']
+  splitTest: 60000, // half of features data 
+  dataColumns: ['account', 'billquantity'],//'year',,'month'
+  labelColumns: ['billamount']
 });
 
+
+
 /* make sure data loaded
-console.log('features - horsepower :', features)
-console.log('labels - mpg :', labels) 
-console.log('testFeatures - horsepower :', testFeatures)
-console.log('testLabels - mpg :', testLabels)
-testFeatures - horsepower : [
-  [ 153 ], [ 58 ],
-  [ 95 ],  [ 225 ],
-  [ 115 ], [ 46 ],
-  [ 110 ], [ 105 ],
-  [ 110 ], [ 95 ]
+console.log('features :', features);
+console.log('labels - bill :', labels);
+console.log('-----------------------------');
+console.log('testFeatures :', testFeatures);
+console.log('testLabels - bill :', testLabels);
+
+testFeatures : [
+  'account','billquantity'
+  [ 206798986, 645 ],
+  [ 503687263, 1434 ],
+  [ 201070657, 1663 ],
+  [ 300243565, 839 ],
+  [ 550634709, 2269 ],
+  [ 206929861, 750 ],
+  [ 553466453, 479 ],
+  [ 555447332, 1270 ],
+  [ 302918333, 569 ],
+  [ 303536305, 832 ]
 ]
-testLabels - mpg : [
-  [ 14 ],   [ 36 ],
-  [ 22 ],   [ 12 ],
-  [ 21.6 ], [ 26 ],
-  [ 23.5 ], [ 26.6 ],
-  [ 24 ],   [ 20 ]
+testLabels - billamount : [
+  [ 1289.88 ], [ 2314.36 ],
+  [ 2941.58 ], [ 1105.89 ],
+  [ 3808.41 ], [ 1439.06 ],
+  [ 1057.86 ], [ 2209.73 ],
+  [ 1181.9 ],  [ 1509.25 ]
 ]
 
 */
@@ -61,52 +71,80 @@ testLabels - mpg : [
 const regression = new LinearRegression(features, labels, {
   learningRate: 0.1,
   iterations: 10,
-  batchSize: 10  // no of records in batch
+  batchSize: 20  // no of records in a batch
 });
 
 // call train
 regression.train();
+// let B = regression.weights.get(0, 0)
+// let M = regression.weights.get(1, 0)
+// console.log('Updated B is :', numeral(B).format('0,0.00'))  // B = Updated B is : 14,367.89
+// console.log('Updated M is :', numeral(M).format('0,0.00'))  // M = Updated M is :   -712.61
 
-// console.log('Updated M is :', regression.weights.get(1,0))
-// console.log('Updated B is :', regression.weights.get(0,0))
 
-
-/*
 // call test only development mode
-const R2 = Math.round(100 * regression.test(testFeatures, testLabels));
-const R2_ = regression.test(testFeatures, testLabels);
-
-plot({
-  x: regression.mseHistory.reverse(),
-  xLabel: 'Iteration #',
-  yLabel: 'Mean Squared Error'
-});
+// const R2 = numeral(((100 * regression.test(testFeatures, testLabels)))).format('0,0.00');
+// const R2_ = regression.test(testFeatures, testLabels);
+// console.log('Coefficent of Determination : ', R2, '%', '|', R2_); // Coefficent of Determination :  92.67 % | 0.9267345554019416
 
 // plot({
-//   x:regression.bHistory,
-//   y: regression.mseHistory.reverse(),
-//   xLabel:'Value of B',
-//   yLabel:'Mean Squared Error'
+//   x: regression.mseHistory.reverse(),
+//   xLabel: 'Iteration #',
+//   yLabel: 'Mean Squared Error'
 // });
-console.log(' Coefficent of Determination : ', R2, '%', '|', R2_);
-*/
+
+// plot({
+//   x: regression.bHistory,
+//   y: regression.mseHistory.reverse(),
+//   xLabel: 'Value of B',
+//   yLabel: 'Mean Squared Error'
+// });
+
+
 
 /* -------------- Step 5: Use model generated by algoritm to make a prediction --------------*/
 /*      observations 
          [
-             ['horsepower', 'weight', 'displacement'],
-             ['horsepower', 'weight', 'displacement'],
-             ['horsepower', 'weight', 'displacement']
+               ['account', 'billquantity'],
+               ['account', 'billquantity'],
+               ['account', 'billquantity']
          ]  
    */
-const observations = [
-  [120, 2, 380],
-  [135, 2.1, 420],
+let { observations } = dataCSV('maysales.csv', { dataColumns: ['account', 'billquantity'] });
+// tf.tensor(observations).print();
+
+// console.log(' observations (account,billquantity)  : ', observations);
+const observations1 = [
+  [206802276, 2324], [502228270, 586], [205133587, 263],
+  [300929435, 2820], [551804921, 1526], [205364922, 1395],
+  [554331737, 28351], [555120425, 818], [303713762, 705],
+  [400132594, 582], [402712093, 1092], [403438407, 2349]
 ]
-console.log(' observations : ', observations);
-const predictionMPG = regression.predict(observations);
-predictionMPG.print();
+// observations = tf.tensor(observations);
+const predictBillAmount = regression.predictBillAmount(observations);
+// predictBillAmount.print();
 
+const BillAmount = predictBillAmount.sum(0);
+console.log(' BillAmount  : ', BillAmount.get(0)); //BillAmount  :  1,679121664
+// const data = tf.tensor(observations).concat(predictBillAmount, 1)
+// console.log(' observations (account,billquantity)  : ', data);
+// data.print();
 
+/*
+  observations (account,billquantity)  :  [ ]
+Tensorcls
+    [
+     [4770.0683594 ],
+     [5821.171875  ],
+     [5568.2744141 ],
+     [10366.0214844],
+     [4989.2021484 ],
+     [3448.9140625 ],
+     [5225.5263672 ],
+     [4880.0175781 ],
+     [4345.1699219 ],
+     [7340.6083984 ]
+    ]
+*/
 
-/* -------------- Step 6: END --------------*/
+/* ----------------------------  Step 6: END ----------------------------*/
