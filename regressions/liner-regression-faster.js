@@ -34,16 +34,12 @@ class LinearRegression {
     gradientDescent(features, labels) {
         /* step 1: calculate "mx+b" = Features * Weights by using Matrix Multiplication */
         const currentGuessess = features.matMul(this.weights);
-
         /* step 2: (Features*Weights)-Labels = Subtract Labels */
         const differences = currentGuessess.sub(labels);
-
         /* step 3: Features * differences */
         const slopes = features.transpose().matMul(differences).div(features.shape[0]);
-
         /* step 4: Multiply both slopes by learning rate and Subtract*/
         this.weights = this.weights.sub(slopes.mul(this.options.learningRate));
-
         // console.log(' Slope of MSE with respect to M and B : ', this.weights)
     }
 
@@ -61,7 +57,7 @@ class LinearRegression {
             }
             // console.log(' mseHistory : ', this.mseHistory)
             // console.log(' Learning Rate : ', this.options.learningRate)
-            this.bHistory.push(this.weights.get(0,0))
+            this.bHistory.push(this.weights.get(0, 0))
             this.recordMSE();
             this.updateLearningRate();
         }
@@ -69,15 +65,18 @@ class LinearRegression {
 
     /* ------------------ Test data ------------------ */
     test(testFeatures, testLabels) {
+
         /* step 1: Constructor to make "features" and "labels" into tensors */
         /* step 2: Standardization */
         /* step 3: Append a column of 1's to the "features" tensor */
         testFeatures = this.processFeatures(testFeatures);
         testLabels = tf.tensor(testLabels);
+        // console.log('Test Labels   : ', testLabels);
 
         /* step 4: calculate  Predictions "mx+b" = testFeatures * Weights by using Matrix Multiplication */
         const predictions = testFeatures.matMul(this.weights);
-        // console.log(' predictions : ',);
+        // console.log(' ***********************************  : ',);
+        // console.log(' Predictions "mx+b"  : ',);
         // predictions.print();
 
         /* step 5: calculate  Sum Squares of Residuals  (SS(res)) */
@@ -97,6 +96,7 @@ class LinearRegression {
     processFeatures(features) {
         //step 1: Constructor to make "features" into tensors
         features = tf.tensor(features);
+
         //step 2: Standardization 
         /* not first time */
         if (this.mean && this.variance) {
@@ -179,7 +179,7 @@ class LinearRegression {
            ]  
         */
         //    console.log(' observations (account,billquantity)  : ', observations);
-           
+
         const predict = this.processFeatures(observations).matMul(this.weights);
         return predict
     }

@@ -1,0 +1,25 @@
+/*
+ ** purpose :  browser support and backwards compatibility for your application **
+* set up Babel to transpile for ES2015+
+* Babel uses .babelrc to keep track of the plugins and presets.
+*
+babel-core: babel transpile ES6 code to ES5
+
+babel-loader: This is a webpack helper which allows to transpile Javascript files with babel and webpack. It uses babel under the hood
+
+babel/preset-env: It determines which features needs to be transformed to run within different browsers or runtime versions. This is also known as browser polyfills
+
+babel/preset-react: It is used to transform all your React JSX into functions.
+"useBuiltIns": "entry" /"usage"
+useBuiltIns: "entry" option not only transforms import "core-js" imports, but also regenerator-runtime/runtime and all the nested core-js entry points. 
+*/
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties"
+  ]
+}

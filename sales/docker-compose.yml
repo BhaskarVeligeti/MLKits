@@ -1,0 +1,14 @@
+version: "2"
+services:
+  #define a service called app
+  rgh:
+    #adding a container name
+    container_name: rghweb
+    #restart the container automatically if it fails
+    restart: always
+    #building the app image using the Dockerfile in the current directory
+    build: .
+    #mapping the host port to the container port.
+    ports:
+      - "3000:3000"
+  

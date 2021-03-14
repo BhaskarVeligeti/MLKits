@@ -23,13 +23,12 @@ const numeral = require('numeral');
 
 /* -------------- Step 1: Identify data that is relevant to the problem --------------*/
 /* -------------- Step 2: Assemble a set of data related to the problem you're trying to solve : --------------*/
-let { features, labels, testFeatures, testLabels } = loadCSV('aprilsales.csv', {
+let { features, labels, testFeatures, testLabels } = loadCSV('maysales.csv', {
   shuffle: true,
   splitTest: 60000, // half of features data 
   dataColumns: ['account', 'billquantity'],//'year',,'month'
   labelColumns: ['billamount']
 });
-
 
 
 /* make sure data loaded
@@ -65,13 +64,14 @@ testLabels - billamount : [
 /* This is Regression  type  */
 
 /* -------------- Step 4: Based on type of output,pick an algorithm that will determine a correlation between your "features" and "labels" --------------*/
-/* Algorithm = LinearRegression */
+/* Algorithm = Linear Regression */
 
 // new instance
 const regression = new LinearRegression(features, labels, {
   learningRate: 0.1,
-  iterations: 10,
+  iterations: 15,
   batchSize: 20  // no of records in a batch
+
 });
 
 // call train
@@ -83,9 +83,9 @@ regression.train();
 
 
 // call test only development mode
-// const R2 = numeral(((100 * regression.test(testFeatures, testLabels)))).format('0,0.00');
-// const R2_ = regression.test(testFeatures, testLabels);
-// console.log('Coefficent of Determination : ', R2, '%', '|', R2_); // Coefficent of Determination :  92.67 % | 0.9267345554019416
+// const R2 = regression.test(testFeatures, testLabels);
+// const R2_ = numeral(100 * R2).format('0,0.00');
+// console.log('Coefficent of Determination : ', R2_, '%', '|', R2); // Coefficent of Determination :  99.25 % | 0.9924877544261357
 
 // plot({
 //   x: regression.mseHistory.reverse(),
@@ -110,8 +110,8 @@ regression.train();
                ['account', 'billquantity']
          ]  
    */
-let { observations } = dataCSV('maysales.csv', { dataColumns: ['account', 'billquantity'] });
-// tf.tensor(observations).print();
+let { observations } = dataCSV('junesales.csv', { dataColumns: ['account', 'billquantity'] });
+
 
 // console.log(' observations (account,billquantity)  : ', observations);
 const observations1 = [
@@ -120,15 +120,18 @@ const observations1 = [
   [554331737, 28351], [555120425, 818], [303713762, 705],
   [400132594, 582], [402712093, 1092], [403438407, 2349]
 ]
-// observations = tf.tensor(observations);
-const predictBillAmount = regression.predictBillAmount(observations);
-// predictBillAmount.print();
 
+const predictBillAmount = regression.predictBillAmount(observations);
 const BillAmount = predictBillAmount.sum(0);
-console.log(' BillAmount  : ', BillAmount.get(0)); //BillAmount  :  1,679121664
-// const data = tf.tensor(observations).concat(predictBillAmount, 1)
-// console.log(' observations (account,billquantity)  : ', data);
-// data.print();
+/*
+console.log(' --------- Predict BillAmount  --------- ',);
+predictBillAmount.print();
+
+console.log('---------  Predict Total BillAmount  ---------  ',);
+BillAmount.print();
+*/
+console.log(' Predict Total Bill Amount  : ', numeral((BillAmount.get(0) / 1000000000)).format('0,0.00'), ' Billions');    //BillAmount  :  1637811584,
+
 
 /*
   observations (account,billquantity)  :  [ ]
