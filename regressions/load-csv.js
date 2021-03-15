@@ -21,6 +21,7 @@ module.exports = function loadCSV(
   }
 ) {
   let data = fs.readFileSync(filename, { encoding: 'utf-8' });
+  // console.log('data:', data);
   data = _.map(data.split('\n'), d => d.split(','));
   data = _.dropRightWhile(data, val => _.isEqual(val, ['']));
   const headers = _.first(data);

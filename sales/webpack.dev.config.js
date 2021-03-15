@@ -19,7 +19,7 @@ module.exports = {
         publicPath: '/',
         filename: '[name].js'
     },
-    target: 'web',
+    target: 'web', // Make web variables accessible to webpack, e.g. window
     optimization: {
         splitChunks: { // allows us to extract common dependencies into an existing entry chunk or an entirely new chunk
             chunks: 'all',
@@ -123,7 +123,7 @@ module.exports = {
         // filename output defined above.
         new HtmlWebPackPlugin({
             inject: true,
-            favicon:"./src/images/Loader.gif",
+            favicon: "./src/images/Loader.gif",
             template: "./src/index.html",
             filename: "./index.html",
             excludeChunks: ['client'] //we don’t want to be included into our HTML file, since that is the webserver, and not needed in the app itself.

@@ -57,7 +57,11 @@ const _taggleComponent = (dispatch) => async (taggle) => {
     dispatch({ type: 'taggle_component', payload: taggle });
 };
 
-
+/*------------Predict----------------------*/
+const _predict = (dispatch) => async (taggle) => {
+    // console.log('@_taggleComponent:', taggle);
+    dispatch({ type: 'taggle_component', payload: taggle });
+};
 
 
 /**************************************************************** : END :************************************************************************************* */
@@ -65,7 +69,7 @@ const _taggleComponent = (dispatch) => async (taggle) => {
 
 
 const actions = {
-    _taggleNav, _taggleComponent,
+    _taggleNav, _taggleComponent,_predict
 }
 /****************************** calling auotmatic context and passing reducer,actions,defauit state ---- it is magic part **************************/
 export const { Context, Provider } = createDataContext(appReducer, actions, INITIAL_STATE);

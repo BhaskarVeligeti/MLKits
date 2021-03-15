@@ -25,6 +25,7 @@ module.exports = (env, argv) => {
         externals: [nodeExternals()], // only "development"
         module: {
             rules: [
+
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,

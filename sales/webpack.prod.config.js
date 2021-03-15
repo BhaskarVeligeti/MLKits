@@ -19,8 +19,8 @@ module.exports = {
     publicPath: '/',
     filename: '[name].js'
   },
-  target: "web",
-  devtool:'hidden-source-map',// don't want to expose your SourceMap for the browser development tools.
+  target: "web", // Make web variables accessible to webpack, e.g. window
+  devtool: 'hidden-source-map',// don't want to expose your SourceMap for the browser development tools.
   optimization: {
     splitChunks: { // allows us to extract common dependencies into an existing entry chunk or an entirely new chunk
       chunks: 'all',
@@ -99,8 +99,8 @@ module.exports = {
     // The injected script tag contains a src value of the
     // filename output defined above.
     new HtmlWebPackPlugin({
-      minify:true,
-      favicon:"./src/images/Loader.gif",
+      minify: true,
+      favicon: "./src/images/Loader.gif",
       hash: true,
       template: "./src/index.html",
       filename: "./index.html"
