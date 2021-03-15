@@ -1,0 +1,138 @@
+.content-padding {
+  padding-top: 56px;
+}
+
+/* ------------------------------:nav bar custome styles:------------------------------ */
+.navbar-bg-color {
+  background-image: linear-gradient(326deg, #106eea 50%, #ecf5fd 70%);
+}
+
+.navbar {
+  min-height: 56px;
+}
+
+.brand-text {
+  display: table;
+}
+
+.brand-text span {
+  display       : table-cell;
+  vertical-align: middle;
+}
+
+.nav-link {
+  color: rgb(214, 214, 214) !important;
+}
+
+.navbar-nav>.active>a {
+  color: #ffffff !important;
+  border-bottom: 3px solid red;
+}
+
+.navbar ul.navbar-nav a {
+  text-decoration: none;
+  position       : relative;
+  display        : inline-block;
+}
+
+.navbar ul.navbar-nav a::after {
+  content         : '';
+  width           : 90%;
+  position        : absolute;
+  top             : 100%;
+  left            : 10%;
+  height          : 2px;
+  background-color: red;
+  transform       : scaleX(0);
+  transition      : transform .35s ease;
+}
+
+/* .navbar ul.navbar-nav a:hover {
+  color: rgb(44, 43, 43) !important;
+} */
+
+.navbar ul.navbar-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ------------------------------ :end of navbar: ------------------------------*/
+
+/* border styles */
+.content-border-left-width {
+  min-height          : 80vh;
+  /* margin-left      : 6px; */
+  border-left-style   : solid;
+  border-left-width   : medium;
+  border-left-color   : #f8f9fa;
+  margin-right        : 15px;
+}
+
+.content-border-left-width2 {
+  border-left-style   : solid;
+  border-left-width   : medium;
+  border-left-color   : #f8f9fa;
+  margin-right        : -5px;
+}
+
+.selling-price-update {
+  background-color: #fff3f0;
+}
+
+.selling-price {
+  background-color: #edfce9;
+  font-weight     : bold;
+}
+
+.wonned {
+  color           : #ffffff;
+  background-color: #28a745;
+  font-weight     : bold;
+  align-items     : center;
+}
+
+.available {
+  color: #28a745;
+}
+
+.active {
+  color      : #28a745;
+  font-weight: bold;
+}
+
+.not-available {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/** card styles*/
+.card-header-success {
+  font-family     : Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE', lucida, 'Helvetica CE', Helvetica !important;
+  background-image: -webkit-radial-gradient(right center, ellipse farthest-side, #ffffff 0%, #94faac 300%);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+/* card ustome styles : */
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  object-fit: cover;
+}
+
+/*  modal custome styles**/
+.custom-modal-header {
+  font-family     : Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE', lucida, 'Helvetica CE', Helvetica !important;
+  background-image: linear-gradient(326deg, #ecf5fd 10%, #106eea 65%);
+  color           : #fff;
+}

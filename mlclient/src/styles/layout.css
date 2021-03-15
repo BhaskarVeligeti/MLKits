@@ -1,0 +1,110 @@
+html {
+  font-size  : 14px;
+  font-family: Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE', lucida, 'Helvetica CE', Helvetica;
+}
+
+
+body {
+  overflow-x             : hidden;
+  -webkit-font-smoothing : antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering         : optimizelegibility;
+}
+
+
+.sticky-offset {
+  top: 56px;
+}
+
+#body-row {
+  margin-left : 0;
+  margin-right: 0;
+}
+
+#sidebar-container {
+  min-height      : 100vh;
+  background-image: linear-gradient(326deg, #fff 25%, #d5ecff 95%);
+  padding         : 0;
+  font-size       : 0.95rem;
+}
+
+.main-menu {
+  height: 56px;
+}
+
+/* Sidebar sizes when expanded and expanded */
+.sidebar-expanded {
+  width: 230px;
+}
+
+.sidebar-collapsed {
+  width: 60px;
+}
+
+/* Menu item*/
+#sidebar-container .list-group {
+  font-weight: 600;
+}
+
+#sidebar-container .list-group a {
+  color       : #317DBD;
+  padding-left: 30px;
+  box-shadow  : 0 6px 10px 0 rgba(179, 214, 243, 0.2);
+}
+
+#sidebar-container .list-group .active {
+  color      : white;
+  font-weight: normal;
+}
+
+/* Submenu item*/
+#sidebar-container .list-group .sidebar-submenu a {
+  height     : 40px;
+  font-weight: normal;
+}
+
+/* .list-group-item:hover {
+  color: black;
+} */
+
+
+/* #sidebar-container .list-group .sidebar-submenu .list-group a .active {
+  color              : rgb(77, 2, 2);
+  font-weight        : 600;
+} */
+
+
+/* #sidebar-container .sidebar-submenu .list-group-item.list-group-item-action:hover{
+  font-weight: normal;
+  background-color: #fff;
+  box-shadow  : 0 6px 10px 0 rgba(90, 171, 236, 0.2);
+} */
+
+/* #sidebar-container .sidebar-submenu .list-group a  {
+  color      : rgb(100, 9, 9);
+  font-weight: 600;
+} */
+
+.sidebar-submenu {
+  font-size: 0.9rem;
+}
+
+/* Closed submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="false"] .submenu-icon::after {
+  content     : "\f0d7";
+  font-family : "Font Awesome\ 5 Free";
+  display     : none;
+  text-align  : right;
+  padding-left: 10px;
+  font-weight : 900;
+}
+
+/* Opened submenu icon */
+#sidebar-container .list-group .list-group-item[aria-expanded="true"] .submenu-icon::after {
+  content     : "\f0da";
+  font-family : "Font Awesome\ 5 Free";
+  display     : none;
+  text-align  : right;
+  padding-left: 10px;
+  font-weight : 900;
+}

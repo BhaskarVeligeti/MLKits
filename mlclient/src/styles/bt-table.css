@@ -1,0 +1,90 @@
+   /* using for Bootstrap table*/
+   .react-bootstrap-table table {
+     font-size: 0.85rem !important;
+   }
+
+   .custom-table-header {
+     font: 13px Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE',
+       lucida, 'Helvetica CE', Helvetica !important;
+     color: rgb(78, 78, 78) !important;
+     background-image: -webkit-radial-gradient(right center,
+         ellipse farthest-side,
+         #ffffff 10%,
+         #ecf7ff 100%);
+   }
+
+   .table-hover tbody tr:hover {
+     background-color: #f9fcff !important;
+     cursor          : pointer;
+   }
+
+   .selection-row {
+     background-color: #ecf7ff !important;
+   }
+
+
+   .custom-table-header-expand {
+     font: 13px Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE',
+       lucida, 'Helvetica CE', Helvetica !important;
+     color: rgb(78, 78, 78) !important;
+     background-image: -webkit-radial-gradient(right center,
+         ellipse farthest-side,
+         #ffffff 0%,
+         #fcd2be 300%);
+   }
+
+   .custom-table-header-inactive {
+     font: 13px Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, Verdana, 'Verdana CE', Arial, 'Arial CE', 'Lucida Grande CE',
+       lucida, 'Helvetica CE', Helvetica !important;
+     color: rgb(78, 78, 78) !important;
+     background-image: -webkit-radial-gradient(right center,
+         ellipse farthest-side,
+         #ffffff 0%,
+         #f12b2b 300%);
+   }
+
+   .name {
+     color: #317DBD;
+   }
+
+   .startdate {
+     color: #28a745
+   }
+
+   .enddate {
+     color: #dc3545
+   }
+
+   .parentexpand {
+     background-color: #fdfafa !important;
+   }
+
+   .expand {
+     background-color: #fff;
+   }
+
+   .total {
+     color: #317DBD
+   }
+
+
+   .paid {
+     color: #28a745
+   }
+
+   .balance,
+   .invNo {
+     color: #dc3545
+   }
+
+   .paidAt {
+     color: #fd7e14
+   }
+
+   .available,
+   .invTotal {
+     color      : #28a745;
+     font-weight: bold;
+   }
+
+   /*******************************************************************************************************************************/

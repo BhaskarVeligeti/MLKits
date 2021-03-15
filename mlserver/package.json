@@ -1,17 +1,30 @@
 {
   "name": "mlserver",
   "version": "1.0.0",
-  "description": "machine learning node server",
+  "description": "machine learning node web server",
   "main": "index.js",
+  "scripts": {
+    "start1": "nodemon src/index.js",
+    "start": "nodemon src/index.js"
+  },
   "author": "Mr Bhaskar Veligeti",
   "license": "MIT",
   "dependencies": {
-    "@tensorflow/tfjs-node": "0.1.17",
+    "@tensorflow/tfjs-node": "^0.1.17",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "numeral": "^2.0.6",
+    "shuffle-seed": "^1.1.6"
+  },
+  "devDependencies": {
+    "memoize": "^0.1.1",
+    "mnist-data": "^1.2.6",
+    "node-remote-plot": "^1.2.0",
     "nodemon": "^2.0.7",
     "rimraf": "^3.0.2",
-    "shuffle-seed": "^1.1.6",
     "webpack": "^5.25.1",
     "webpack-node-externals": "^2.5.2"
   }

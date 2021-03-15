@@ -1,0 +1,135 @@
+/* 
+    Created on : May 11, 2016, 10:39:17 PM
+    Author     : bhaskar
+*/
+
+/*Headline Center v2*/
+.headline-center-v2 {
+  z-index   : 0;
+  text-align: center;
+  position  : relative;
+}
+
+.headline-center-v2 h2 {
+  color         : #555;
+  font-size     : 24px;
+  margin-bottom : 20px;
+  text-transform: uppercase;
+}
+
+.headline-center-v2 span.bordered-icon {
+  color        : #fff;
+  padding      : 0 10px;
+  font-size    : 15px;
+  line-height  : 18px;
+  position     : relative;
+  margin-bottom: 25px;
+  display      : inline-block;
+}
+
+.headline-center-v2 span.bordered-icon:before,
+.headline-center-v2 span.bordered-icon:after {
+  top       : 8px;
+  height    : 1px;
+  content   : ' ';
+  width     : 100px;
+  background: #fff;
+  position  : absolute;
+}
+
+.headline-center-v2 span.bordered-icon:before {
+  left: 100%;
+}
+
+.headline-center-v2 span.bordered-icon:after {
+  right: 100%;
+}
+
+.headline-center-v2 p {
+  color    : #555;
+  font-size: 14px;
+  padding  : 0 70px;
+}
+
+.headline-center-v2.headline-center-v2-dark p {
+  color: #666;
+}
+
+.headline-center-v2.headline-center-v2-dark span.bordered-icon {
+  color: #666;
+}
+
+.headline-center-v2.headline-center-v2-dark span.bordered-icon:before,
+.headline-center-v2.headline-center-v2-dark span.bordered-icon:after {
+  background: #cacaca;
+}
+
+/*Block Headline*/
+.headline {
+  display      : block;
+  margin       : 10px 0 25px 0;
+  border-bottom: 0px dotted #e4e9f0;
+}
+
+.headline h2 {
+  font-size: 22px;
+  color    : #727272;
+}
+
+.headline h2,
+.headline h3,
+.headline h4,
+.headline h5 {
+  margin           : 0 0 -2px 0;
+  padding-bottom   : 5px;
+  display          : inline-block;
+  /*  border-bottom: 1.5px solid #BC4C34;*/
+  border-bottom    : 1.5px solid #e55e43;
+  /*color          : #727272!important;*/
+}
+
+.headline-md {
+  margin-bottom: 15px;
+}
+
+.headline-md h2 {
+  font-size: 21px;
+  color    : #727272 !important;
+}
+
+/*Heading Sizes
+------------------------------------*/
+h2.heading-md {
+  font-size  : 20px;
+  line-height: 24px;
+}
+
+h2.heading-sm,
+h3.heading-md {
+  font-size  : 14px;
+  line-height: 14px;
+}
+
+h3.heading-md {
+  line-height: 22px;
+}
+
+h3.heading-sm {
+  font-size  : 16px;
+  line-height: 20px;
+}
+
+h2.heading-xs {
+  font-size  : 16px;
+  line-height: 22px;
+}
+
+h3.heading-xs {
+  font-size    : 14px;
+  margin-bottom: 0;
+}
+
+h4.heading-xs {
+  font-size    : 13px;
+  margin-bottom: 0;
+}

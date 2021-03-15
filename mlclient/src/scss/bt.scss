@@ -1,0 +1,10 @@
+// $theme-colors: (
+//   "primary": #4691f3
+// );
+//Importing Bootstrap Sass
+@import "~bootstrap/scss/bootstrap";
+
+// Note that Bootstrap’s functions, variables and mixins are required
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
