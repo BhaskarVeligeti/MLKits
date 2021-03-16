@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import SignInForm from '../components/forms/auth/SignInForm';
 import { Context as AppContext } from '../context/AppContext';
-// import process from '../images/LifestyleProcess.png';
+import ml from '../images/ml.gif';
 import RenderError from '../components/error/RenderError';
 
 
@@ -31,28 +31,28 @@ const AuthContent = () => {
 
             <div className="row py-2">
                 <div className="col-8">
-                {/* <img src={process} width="100%" height="650" className="img" alt="" /> */}
+                    <img src={ml} width="100%" height="500"  alt="" />
                 </div>
 
                 <div className="col content-border-left-width">
                     {updatePasswordResult && <div className="alert alert-success" role="alert">
                         Password updated successfully!
                     </div>}
-                
-                        <div className="shadow-lg p-3 mb-5 bg-white rounded" style={{marginTop:'76px'}}>
-                            <div style={{ marginTop: '-50px' }}>
-                                <FontAwesomeIcon icon="user-circle" className="mr-2 rounded mx-auto d-block" style={{ fontSize: '50px', color: '#20c997' }} />
-                            </div>
-                            <div className="text-secondary text-center pt-5" >
-                                <h5>Authentication</h5>
-                            </div>
-                            <div id="signin">
-                                <RenderError errorMessage={errorMessage} loading={loading} />
-                                <SignInForm handleSubmit={handleSignIn} loading={loading} />
-                            </div>
-                        </div>
 
-                   
+                    <div className="shadow-lg p-3 mb-5 bg-white rounded" style={{ marginTop: '76px' }}>
+                        <div style={{ marginTop: '-50px' }}>
+                            <FontAwesomeIcon icon="user-circle" className="mr-2 rounded mx-auto d-block" style={{ fontSize: '50px', color: '#20c997' }} />
+                        </div>
+                        <div className="text-secondary text-center pt-5" >
+                            <h5>Authentication</h5>
+                        </div>
+                        <div id="signin">
+                            <RenderError errorMessage={errorMessage} loading={loading} />
+                            <SignInForm handleSubmit={handleSignIn} loading={loading} />
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
