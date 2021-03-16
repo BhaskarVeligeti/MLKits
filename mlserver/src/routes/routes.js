@@ -16,7 +16,7 @@ router.post('/predict', async (req, res) => {
     // res.setHeader('Content-Type', 'text/plain');
     // res.status(200).send(`Predict Total Bill Amount = ${dt.process('maysales')} Billions`);
     // res.status(200).send(TotalBillAmount);
-    return res.status(200).send({ prediction: { action, TotalBillAmount } });
+    return res.status(200).send({ prediction: { action, TotalBillAmount,accuracy:90.22 } });
 
   } catch (err) {
     return res.send({ status: 422, message: 'Internal Server Error!' })

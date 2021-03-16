@@ -23,7 +23,7 @@ const process = (fileName) => {
   /* -------------- Step 2: Assemble a set of data related to the problem you're trying to solve : --------------*/
   let { features, labels, testFeatures, testLabels } = loadCSV('./src/linearregression/aprilsales.csv', {
     shuffle: true,
-    splitTest: 60000, // half of features data 
+    splitTest: 50, // half of features data 
     dataColumns: ['account', 'billquantity'],
     labelColumns: ['billamount']
   });

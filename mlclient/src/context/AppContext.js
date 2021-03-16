@@ -33,7 +33,9 @@ const INITIAL_STATE = {
     selectedMenu: null,
     may2019: may2019Data,
     june2019: june2019Data,
-    // prediction: [],
+    // prediction: [{ "action": 1, "TotalBillAmount": 0, "accuracy": 0 }, { "action": 2, "TotalBillAmount": 0, "accuracy": 0 }],
+    // prediction: [{ "action": 0, "TotalBillAmount": 0, "accuracy": 0 }],
+    prediction: [],
     lifestyle3MonthsStock: null,   // it is looks like : { yKey: 'Payments', data: [{ xValue: 'May', yValue: 500 }]
 };
 
@@ -69,23 +71,29 @@ const appReducer = (state, action) => {
         case 'predict_request_send':
             return { ...state, loading: true, showModal: true };
         case 'predict_sales':
-            return { ...state, prediction: [...state.prediction, action.payload], loading: false, showModal: false };// loading: false, showModal: false
-        //prediction = { action, TotalBillAmount }
-
+            return {
+                ...state,
+                prediction: [...state.prediction, action.payload],
+                // prediction: [...state.prediction.map(item => item.action === action.payload.action ?
+                //     { ...item, action: action.payload.action, TotalBillAmount: action.payload.TotalBillAmount, accuracy: action.payload.accuracy } : action.payload)],
+                loading: false, showModal: false
+            };
         default:
             return state;
     }
 };
 
 
-/*------------Authentication by Express server----------------------*/
+
+/*...........................................1.Prediction........................................................*/
+/*------------predictSales----------------------*/
 const _predictSales = (dispatch) => async (input) => {
     // console.log('input@_predictSales :', input);
     try {
         /* step 1: make api request */
         dispatch({ type: 'predict_request_send' });
         response = await expressApi.post('/predict', input);
-        // console.log('@response:', response.data); //{ action: 1, TotalBillAmount: 1.64 }
+        // console.log('@response:', response.data.prediction); //{ action: 1, TotalBillAmount: 1.64,accuracy:99.01 }
         if (response.data.message !== undefined) { // for Express Error
             let err = {
                 "response": { status: response.data.status, data: response.data.message }
@@ -95,15 +103,11 @@ const _predictSales = (dispatch) => async (input) => {
         else { //  Dispatch an action
             dispatch({ type: 'predict_sales', payload: response.data.prediction });
         }
-
     } catch (err) {
         // console.log('error@_signIn:', err);
         dispatch(getError(err));
     }
 };
-
-
-/*...........................................1.Prediction........................................................*/
 /*------------Taggle Nav----------------------*/
 const _taggleNav = (dispatch) => async (taggle) => {
     // console.log('@_taggleNav:', taggle);
@@ -117,7 +121,6 @@ const _taggleComponent = (dispatch) => async (taggle) => {
 const toggleModal = dispatch => (boolean) => {
     dispatch({ type: 'modal', payload: boolean });
 };
-
 /*------------Authentication by Express server----------------------*/
 const _signIn = (dispatch) => async (input) => {
     // console.log('input@_signIn :', input);

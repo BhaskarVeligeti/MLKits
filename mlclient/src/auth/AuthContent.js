@@ -19,7 +19,7 @@ const AuthContent = () => {
 
     return (
 
-        <main role="main" className="container pt-5">
+        <main role="main" className="container-fluid pt-5">
             {/* <div className="row">
                 <div className="col-4">
                     <h4>Authentication...</h4>
@@ -30,8 +30,8 @@ const AuthContent = () => {
             </div> */}
 
             <div className="row py-2">
-                <div className="col-8">
-                    <img src={ml} width="100%" height="500"  alt="" />
+                <div className="col-9">
+                    <img src={ml} width="100%" height="600"  alt="" />
                 </div>
 
                 <div className="col content-border-left-width">

@@ -21,14 +21,12 @@ const SalesDataGrid = ({ data, columns, keyField, headerClasses }) => {
             {props => (
                 <div>
                     <div className="row">
-                        <div className="col-md-1 pt-2">
-                            <ExportCSVButton className="btn btn-success btn-sm  custom-button "  {...props.csvProps} >
-                                <FontAwesomeIcon icon="download" />
-                            </ExportCSVButton>
+                        <div className="col-md-3 pt-2">
+                        <SearchBar {...props.searchProps} />
                         </div>
-                        <div className="col-md-3 offset-md-8">
+                        {/* <div className="col-md-3 offset-md-8">
                             <SearchBar {...props.searchProps} />
-                        </div>
+                        </div> */}
                     </div>
                     <div className="row">
                         <div className="col-md-12 pt-1">

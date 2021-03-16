@@ -9,7 +9,7 @@ import Sales from './Sales';
 import SideBarPredict from './SideBarPredict';
 
 const Predict = () => {
-    const { state: { showComponent, loading, errorMessage, }, _taggleComponent } = useContext(AppContext);
+    const { state: { showComponent, selectedMenu, prediction, loading, errorMessage, }, _taggleComponent } = useContext(AppContext);
 
     /**
  * 
@@ -26,7 +26,7 @@ const Predict = () => {
     const renderComponent = () => {
         switch (true) {
             case (showComponent !== 0 && (showComponent === 1 || showComponent === 2)):
-                return <Sales />
+                return <Sales  />
 
             default:
                 return <Element type={2} />
